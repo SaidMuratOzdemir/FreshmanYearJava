@@ -1,14 +1,19 @@
 # Exercise1
 
-This is a code that demonstrates different functionalities using arrays and loops.
+This code includes methods for the following programming questions:
 
-## Methods included:
-- `grade` - assigns grades based on student scores
-- `average` - finds the average of an array of integers or doubles
-- `random` - generates a random integer or double between a given range
-- `eliminateDuplicates` - removes duplicates from an array of integers
-- `isSorted` - checks if an array is sorted in ascending order
-- `lockers` - simulates a locker opening and closing problem
-- `shuffle` - shuffles elements of an array randomly
-- `display` - displays elements of an array
-- `getMax` - finds the maximum value in an array of integers
+## Methods
+
+1. `grade` - Given an array of student scores, this method finds the highest score and assigns grades based on the scores.
+
+2. `getMax` - Finds the maximum value from an array.
+
+3. `average` - Calculates the average of an array of numbers.
+
+4. `eliminateDuplicates` - Given an array of numbers, this method removes the duplicates and returns a new array with non-duplicate numbers.
+
+5. `isSorted` - Checks if an array is sorted in ascending order.
+
+6. `shuffle` - Shuffles an array randomly.
+
+7. `lockers` - Given an array of lockers, this method opens and closes lockers based on a specific pattern and returns an array of open lockers.
