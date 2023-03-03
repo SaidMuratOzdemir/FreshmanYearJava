@@ -1,3 +1,6 @@
+//@author: Said Murat ÖZDEMİR
+//@date: 03.03.2023
+
 import java.util.Scanner;
 
 public class Ex1_20210808006 {
