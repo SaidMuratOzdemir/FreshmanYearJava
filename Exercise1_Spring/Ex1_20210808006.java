@@ -22,11 +22,17 @@ public class Ex1_20210808006 {
                 fans[i] = new Fan(j++, "yellow");
             }
         }
+
+        increaseSpeedOfThirdFans(fans);
+
+        for (Fan fan : fans) {
+            System.out.println(fan);
+        }
     }
 
     public static void increaseSpeedOfThirdFans(Fan[] fans) {
         for (int i = 2; i < fans.length; i += 3) {
-            if (fans[i].isOn()) {
+            if (fans[i].getOn()) {
                 int currentSpeed = fans[i].getSpeed();
                 if (currentSpeed == fans[i].FAST) {
                     fans[i].setSpeed(fans[i].SLOW);
@@ -81,7 +87,7 @@ class Fan {
         this.speed = speed;
     }
 
-    public boolean isOn() {
+    public boolean getOn() {
         return this.on;
     }
 
