@@ -1,4 +1,4 @@
-package Battleship.questiones;
+package Battleship.questiones.objects;
 
 class BankAccount {
 
