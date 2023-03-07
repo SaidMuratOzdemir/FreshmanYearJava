@@ -1,4 +1,4 @@
-package Battleship.Questiones.Objects;
+package Battleship.questiones.objects;
 
 import java.util.Scanner;
 
