@@ -1,4 +1,4 @@
-package Battleship.questiones;
+package Battleship.questiones.input;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
