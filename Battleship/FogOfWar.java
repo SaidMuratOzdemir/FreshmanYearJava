@@ -2,7 +2,7 @@ package Battleship;
 
 import java.util.Scanner;
 
-import static Battleship.TakePosition.locate;
+import static Battleship.TakePosition.isLocated;
 import static Battleship.TakePosition.show;
 
 public class FogOfWar {
@@ -16,8 +16,8 @@ public class FogOfWar {
         for (int i = 0; i < shipName.length; i++) {
             System.out.println("Enter the coordinates of the " + shipName[i] + " (" + shipSize[i] + " cells):");
             String input = scan.nextLine();
-            while (!locate(map1, input, shipSize[i]).equals("valid")) {
-                System.out.println(locate(map1, input, shipSize[i]));
+            while (!isLocated(map1, input, shipSize[i]).equals("valid")) {
+                System.out.println(isLocated(map1, input, shipSize[i]));
                 input = scan.nextLine();
             }
             show(map1);

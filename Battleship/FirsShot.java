@@ -14,8 +14,8 @@ public class FirsShot {
         for (int i = 0; i < shipName.length; i++) {
             System.out.println("Enter the coordinates of the " + shipName[i] + " (" + shipSize[i] + " cells):");
             String input = scan.nextLine();
-            while (!locate(map, input, shipSize[i]).equals("valid")) {
-                System.out.println(locate(map, input, shipSize[i]));
+            while (!isLocated(map, input, shipSize[i]).equals("valid")) {
+                System.out.println(isLocated(map, input, shipSize[i]));
                 input = scan.nextLine();
             }
             show(map);
