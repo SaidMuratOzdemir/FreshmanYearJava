@@ -24,11 +24,11 @@ public class FogOfWar {
         }
 
         System.out.println("\nThe game starts!");
-
         System.out.println("\nTake a shot");
         show(map2);
 
         boolean game = true;
+
         while (game) {
             String input = scan.nextLine();
 

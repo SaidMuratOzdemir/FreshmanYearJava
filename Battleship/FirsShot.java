@@ -27,6 +27,7 @@ public class FirsShot {
         show(map);
 
         boolean game = true;
+
         while (game) {
             String input = scan.nextLine();
 

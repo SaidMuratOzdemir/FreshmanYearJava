@@ -25,7 +25,7 @@ public class TakePosition {
 
     }
 
-    static String isLocated(int[][] array, String string, int shipSize) {
+    public static String isLocated(int[][] array, String string, int shipSize) {
         findLocation(string);
 
         swap();//swapping helps to avoid repeating code
@@ -139,7 +139,7 @@ public class TakePosition {
         }
     }
 
-    static void show(int[][] array) {
+    public static void show(int[][] array) {
         System.out.print("\n  1 2 3 4 5 6 7 8 9 10");
         for (int i = 0; i < array.length; i++) {
             System.out.print("\n" + (char) (65 + i));
