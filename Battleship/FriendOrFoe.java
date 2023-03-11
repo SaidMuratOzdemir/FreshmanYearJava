@@ -1,4 +1,5 @@
 package Battleship;
+
 import java.util.Scanner;
 
 class Player {
@@ -31,29 +32,27 @@ public class FriendOrFoe {
         System.out.println("Player 1, place your ships on the game field");
         locateShips(players[0], shipName, shipSize);
 
-        System.out.println("Press Enter and pass the move to another player");
-        scan.nextLine();
-
         System.out.println("Player 2, place your ships on the game field");
+
         locateShips(players[1], shipName, shipSize);
 
         boolean isAnyoneSunk = false;
 
         while (!isAnyoneSunk) {
             System.out.println("Player 1, it's your turn:");
-            extracted(players[0].warMap, players[1].shipMap, scan);
+            play(players[1].warMap, players[0].shipMap, scan);
             isAnyoneSunk = isAllSunk(players[1].shipMap) || isAllSunk(players[0].shipMap);
             if (isAnyoneSunk) {
                 break;
             }
             System.out.println("Player 2, it's your turn:");
-            extracted(players[1].warMap, players[0].shipMap, scan);
+            play(players[0].warMap, players[1].shipMap, scan);
             isAnyoneSunk = isAllSunk(players[1].shipMap) || isAllSunk(players[0].shipMap);
         }
 
     }
 
-    private static void extracted(int[][] warMap,int [][] shipMap, Scanner scan) {
+    private static void play(int[][] warMap, int[][] shipMap, Scanner scan) {
         showMaps(warMap, shipMap);
         String input = scan.nextLine();
 
@@ -61,47 +60,49 @@ public class FriendOrFoe {
         int shotAbscissa = Integer.parseInt(input.substring(1));
 
         int whatDidHit = 0;
-        while (true){
-            if (shotOrdinate < 'A' || shotOrdinate > 'J' || shotAbscissa < 0 || shotAbscissa > 10) {
-                System.out.println("Error! You entered the wrong coordinates!");
-                System.out.println("Press Enter and pass the move to another player");
-                scan.nextLine();
-                break;
-            }
-            if (warMap[shotOrdinate - 65][shotAbscissa - 1] == 1 || warMap[shotOrdinate - 65][shotAbscissa - 1] == 3) {
-                show(warMap);
-                System.out.println("You hit a ship!");
-                System.out.println("You missed!");
-                System.out.println("Press Enter and pass the move to another player");
-                scan.nextLine();
-                break;
-            }
+
+        if (shotOrdinate < 'A' || shotOrdinate > 'J' || shotAbscissa < 0 || shotAbscissa > 10) {
+            System.out.println("Error! You entered the wrong coordinates!");
+            pass();
+        }
+        if (warMap[shotOrdinate - 65][shotAbscissa - 1] == 1 || warMap[shotOrdinate - 65][shotAbscissa - 1] == 3) {
+            show(warMap);
+            System.out.println("You hit a ship!");
+            System.out.println("You missed!");
+            pass();
         }
 
         if (shipMap[shotOrdinate - 65][shotAbscissa - 1] > 4) {
             whatDidHit = shipMap[shotOrdinate - 65][shotAbscissa - 1];
             shipMap[shotOrdinate - 65][shotAbscissa - 1] = 3;
             warMap[shotOrdinate - 65][shotAbscissa - 1] = 3;
-            show(warMap);
+            showMaps(warMap, shipMap);
             System.out.println();
-            System.out.println("You hit a ship! Try again:");
+            System.out.println("You hit a ship!");
+            pass();
         } else {
             shipMap[shotOrdinate - 65][shotAbscissa - 1] = 1;
             warMap[shotOrdinate - 65][shotAbscissa - 1] = 1;
-            show(warMap);
+            showMaps(warMap, shipMap);
+            System.out.println();
             System.out.println("You missed.");
-            System.out.println("Press Enter and pass the move to another player");
-            scan.nextLine();
+            pass();
 
         }
 
-        boolean isSunk = isSunk(shipMap, whatDidHit);
+        boolean isTheShipSunk = isSunk(shipMap, whatDidHit);
         boolean isAllSunk = isAllSunk(shipMap);
         if (isAllSunk) {
             System.out.println("You sank the last ship. You won. Congratulations!");
-        } else if (!isSunk) {
-            System.out.println("You sank a ship! Specify a new target:");
+        } else if (!isTheShipSunk) {
+            System.out.println("You sank a ship! Specify a new target.");
+            pass();
         }
+    }
+
+    public static void pass() {
+        System.out.println("Press Enter and pass the move to another player");
+        new Scanner(System.in).nextLine();
     }
 
     public static void showMaps(int[][] warMap, int[][] shipMap) {
@@ -123,6 +124,7 @@ public class FriendOrFoe {
         }
         return isSunk;
     }
+
 
     public static void locateShips(Player player, String[] shipName, int[] shipSize) {
 
