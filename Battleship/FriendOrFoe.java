@@ -3,12 +3,14 @@ package Battleship;
 import java.util.Scanner;
 
 class Player {
+    public String name;
     public int[][] shipMap;
     public int[][] warMap;
     public String[] shipName;
     public int[] shipSize;
 
-    public Player(int[][] shipMap, int[][] warMap, String[] shipName, int[] shipSize) {
+    public Player(String name, int[][] shipMap, int[][] warMap, String[] shipName, int[] shipSize) {
+        this.name = name;
         this.shipMap = shipMap;
         this.warMap = warMap;
         this.shipName = shipName;
@@ -20,40 +22,42 @@ public class FriendOrFoe {
     public static int[] coordinates = new int[4];
 
     public static void main(String[] args) {
-        Scanner scan = new Scanner(System.in);
+
         String[] shipName = {"Aircraft Carrier", "Battleship", "Submarine", "Cruiser", "Destroyer"};
         int[] shipSize = {5, 4, 3, 3, 2};
 
         Player[] players = new Player[2];
 
-        players[0] = new Player(new int[10][10], new int[10][10], shipName, shipSize);
-        players[1] = new Player(new int[10][10], new int[10][10], shipName, shipSize);
+        players[0] = new Player("Player 1", new int[10][10], new int[10][10], shipName, shipSize);
+        players[1] = new Player("Player 2", new int[10][10], new int[10][10], shipName, shipSize);
 
-        System.out.println("Player 1, place your ships on the game field");
         locateShips(players[0], shipName, shipSize);
-
-        System.out.println("Player 2, place your ships on the game field");
+        show(players[0].shipMap);
+        pass();
 
         locateShips(players[1], shipName, shipSize);
+        show(players[1].shipMap);
+        pass();
 
         boolean isAnyoneSunk = false;
 
         while (!isAnyoneSunk) {
-            System.out.println("Player 1, it's your turn:");
-            play(players[1].warMap, players[0].shipMap, scan);
-            isAnyoneSunk = isAllSunk(players[1].shipMap) || isAllSunk(players[0].shipMap);
+
+            isAnyoneSunk = play(players[0], players[1]);
+
             if (isAnyoneSunk) {
                 break;
             }
-            System.out.println("Player 2, it's your turn:");
-            play(players[0].warMap, players[1].shipMap, scan);
-            isAnyoneSunk = isAllSunk(players[1].shipMap) || isAllSunk(players[0].shipMap);
+            isAnyoneSunk = play(players[1], players[0]);
         }
-
     }
 
-    public static void play(int[][] warMap, int[][] shipMap, Scanner scan) {
-        showMaps(warMap, shipMap);
+    public static boolean play(Player player, Player enemy) {
+        Scanner scan = new Scanner(System.in);
+
+        showMaps(player.warMap, player.shipMap);
+        System.out.println(player.name + ", it's your turn:");
+
         String input = scan.nextLine();
 
         char shotOrdinate = input.charAt(0);
@@ -64,40 +68,45 @@ public class FriendOrFoe {
         if (shotOrdinate < 'A' || shotOrdinate > 'J' || shotAbscissa < 0 || shotAbscissa > 10) {
             System.out.println("Error! You entered the wrong coordinates!");
             pass();
+            return false;
         }
-        if (warMap[shotOrdinate - 65][shotAbscissa - 1] == 1 || warMap[shotOrdinate - 65][shotAbscissa - 1] == 3) {
-            show(warMap);
+        if (player.warMap[shotOrdinate - 65][shotAbscissa - 1] == 1 || player.warMap[shotOrdinate - 65][shotAbscissa - 1] == 3) {
+            //already hit
+
             System.out.println("You hit a ship!");
             System.out.println("You missed!");
-            pass();
+            //
         }
 
-        if (shipMap[shotOrdinate - 65][shotAbscissa - 1] > 4) {
-            whatDidHit = shipMap[shotOrdinate - 65][shotAbscissa - 1];
-            shipMap[shotOrdinate - 65][shotAbscissa - 1] = 3;
-            warMap[shotOrdinate - 65][shotAbscissa - 1] = 3;
-            showMaps(warMap, shipMap);
+        if (enemy.shipMap[shotOrdinate - 65][shotAbscissa - 1] > 4) { //successfully hit
+            whatDidHit = enemy.shipMap[shotOrdinate - 65][shotAbscissa - 1];
+
+            enemy.shipMap[shotOrdinate - 65][shotAbscissa - 1] = 3;
+            player.warMap[shotOrdinate - 65][shotAbscissa - 1] = 3;
+
             System.out.println();
             System.out.println("You hit a ship!");
-            pass();
-        } else {
-            shipMap[shotOrdinate - 65][shotAbscissa - 1] = 1;
-            warMap[shotOrdinate - 65][shotAbscissa - 1] = 1;
-            showMaps(warMap, shipMap);
+            //
+        } else {//missed
+            enemy.shipMap[shotOrdinate - 65][shotAbscissa - 1] = 1;
+            player.warMap[shotOrdinate - 65][shotAbscissa - 1] = 1;
+
             System.out.println();
             System.out.println("You missed.");
-            pass();
-
+            //
         }
+        pass();
 
-        boolean isTheShipSunk = isSunk(shipMap, whatDidHit);
-        boolean isAllSunk = isAllSunk(shipMap);
+        boolean isTheShipSunk = isSunk(enemy.shipMap, whatDidHit);
+        boolean isAllSunk = isAllSunk(enemy.shipMap);
         if (isAllSunk) {
             System.out.println("You sank the last ship. You won. Congratulations!");
+            return true;
         } else if (!isTheShipSunk) {
             System.out.println("You sank a ship! Specify a new target.");
             pass();
         }
+        return false;
     }
 
     public static void pass() {
@@ -112,22 +121,19 @@ public class FriendOrFoe {
     }
 
     public static boolean isSunk(int[][] shipMap, int whatDidHit) {
-        boolean isSunk = false;
-        boolean loopControl = true;
-        for (int i = 0; i < shipMap.length && loopControl; i++) {
-            for (int j = 0; j < shipMap[i].length & loopControl; j++) {
+        for (int i = 0; i < shipMap.length; i++) {
+            for (int j = 0; j < shipMap[i].length; j++) {
                 if ((shipMap[i][j] == whatDidHit)) {//there is still a part of the ship that is not hit
-                    isSunk = true;
-                    loopControl = false;
+                    return true;
                 }
             }
         }
-        return isSunk;
+        return false;
     }
 
 
     public static void locateShips(Player player, String[] shipName, int[] shipSize) {
-
+        System.out.println(player.name + ", place your ships on the game field");
         Scanner scan = new Scanner(System.in);
         for (int i = 0; i < shipName.length; i++) {
             show(player.shipMap);
@@ -137,7 +143,6 @@ public class FriendOrFoe {
                 System.out.println(isLocated(player.shipMap, input, shipSize[i], i));
                 input = scan.nextLine();
             }
-            show(player.shipMap);
         }
     }
 
@@ -275,7 +280,7 @@ public class FriendOrFoe {
                 if (array[i][j] == 1) {
                     System.out.print(" M"); //missed
                 } else if (array[i][j] > 4) {
-                    System.out.print(" O"); //your ship
+                    System.out.print(" O"); //a ship
                 } else if (array[i][j] == 3) {
                     System.out.print(" X"); //hitted
                 } else {
@@ -283,6 +288,6 @@ public class FriendOrFoe {
                 }
             }
         }
-        System.out.println();
+        System.out.println("\n");
     }
 }
