@@ -52,7 +52,7 @@ public class FriendOrFoe {
 
     }
 
-    private static void play(int[][] warMap, int[][] shipMap, Scanner scan) {
+    public static void play(int[][] warMap, int[][] shipMap, Scanner scan) {
         showMaps(warMap, shipMap);
         String input = scan.nextLine();
 
