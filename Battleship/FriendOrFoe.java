@@ -95,17 +95,17 @@ public class FriendOrFoe {
             System.out.println("You missed.");
             //
         }
-        pass();
 
         boolean isTheShipSunk = isSunk(enemy.shipMap, whatDidHit);
         boolean isAllSunk = isAllSunk(enemy.shipMap);
         if (isAllSunk) {
             System.out.println("You sank the last ship. You won. Congratulations!");
+            pass();
             return true;
         } else if (!isTheShipSunk) {
             System.out.println("You sank a ship! Specify a new target.");
-            pass();
         }
+        pass();
         return false;
     }
 
