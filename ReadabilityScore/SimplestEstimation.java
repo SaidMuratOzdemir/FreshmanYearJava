@@ -1,5 +1,3 @@
-package ReadabilityScore;
-
 import java.util.Scanner;
 
 public class SimplestEstimation {
