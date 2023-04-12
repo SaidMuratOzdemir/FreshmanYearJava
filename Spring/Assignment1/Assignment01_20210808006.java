@@ -1,6 +1,7 @@
 //@author: Said Murat ÖZDEMİR
 //@since: 16.03.2023
 
+package Assignment1;
 import java.util.ArrayList;
 
 public class Assignment01_20210808006 {
@@ -51,7 +52,6 @@ public class Assignment01_20210808006 {
         }
 
     }
-
 }
 
 class Product {
@@ -135,6 +135,15 @@ class FoodProduct extends Product {
     boolean Peanuts;
     boolean Gluten;
 
+    public FoodProduct(String Id, String Name, int Quantity, double Price, int calories, boolean Dairy, boolean eggs, boolean Peanuts, boolean gluten) {
+        super(Id, Name, Quantity, Price);
+        this.Calories = calories;
+        this.Dairy = Dairy;
+        this.Eggs = eggs;
+        this.Peanuts = Peanuts;
+        this.Gluten = gluten;
+    }
+
     public int getCalories() {
         return Calories;
     }
@@ -161,21 +170,20 @@ class FoodProduct extends Product {
 
     public FoodProduct() {
     }
-
-    public FoodProduct(String Id, String Name, int Quantity, double Price, int calories, boolean Dairy, boolean eggs, boolean Peanuts, boolean gluten) {
-        super(Id, Name, Quantity, Price);
-        this.Calories = calories;
-        this.Dairy = Dairy;
-        this.Eggs = eggs;
-        this.Peanuts = Peanuts;
-        this.Gluten = gluten;
-    }
-
 }
 
 class CleaningProduct extends Product {
     boolean Liquid;
     String WhereToUse;
+
+    public CleaningProduct() {
+    }
+
+    public CleaningProduct(String Id, String Name, int Quantity, double Price, boolean liquid, String whereToUse) {
+        super(Id, Name, Quantity, Price);
+        this.Liquid = liquid;
+        this.WhereToUse = whereToUse;
+    }
 
     public boolean isLiquid() {
         return Liquid;
@@ -188,16 +196,6 @@ class CleaningProduct extends Product {
     public void setWhereToUse(String whereToUse) {
         this.WhereToUse = whereToUse;
     }
-
-    public CleaningProduct() {
-    }
-
-    public CleaningProduct(String Id, String Name, int Quantity, double Price, boolean liquid, String whereToUse) {
-        super(Id, Name, Quantity, Price);
-        this.Liquid = liquid;
-        this.WhereToUse = whereToUse;
-    }
-
 }
 
 class Customer {
@@ -257,7 +255,6 @@ class ClubCustomer extends Customer {
     public String toString() {
         return super.Name + " has " + this.Points + " points";
     }
-
 }
 
 class Store {
@@ -319,5 +316,4 @@ class Store {
         }
         return products.indexOf(p);
     }
-
 }
