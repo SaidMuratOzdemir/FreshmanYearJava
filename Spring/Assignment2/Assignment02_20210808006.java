@@ -1,6 +1,6 @@
 //@author S. Murat. ÖZDEMİR
 //@since 4.04.2023 - 21:22
-
+package Assignment2;
 import java.util.ArrayList;
 
 public class Assignment02_20210808006 {

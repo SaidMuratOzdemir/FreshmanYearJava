@@ -1,4 +1,5 @@
 //@Author S. Murat ÖZDEMİR
+package Exercise2_Lab;
 import java.util.Date;
 
 public class Ex2_20210808006 {

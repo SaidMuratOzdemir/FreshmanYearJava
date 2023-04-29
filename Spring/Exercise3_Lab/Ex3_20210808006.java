@@ -1,3 +1,4 @@
+package Exercise3_Lab;
 public class Ex3_20210808006 {
     public static void main(String[] args) {
         System.out.println("Hello World!");

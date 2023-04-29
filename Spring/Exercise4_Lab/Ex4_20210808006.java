@@ -1,6 +1,6 @@
 //@author S. Murat ÖZDEMİR
 //@since 30.03.2023 - 22:54
-
+package Exercise4_Lab;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
