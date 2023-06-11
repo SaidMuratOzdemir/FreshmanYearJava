@@ -70,9 +70,6 @@ class Product {
     private double Price;
     private int Quantity;
 
-    public Product() {
-    }
-
     public Product(Long Id, String Name, int Quantity, double Price) {
         this.Id = Id;
         this.Name = Name;
@@ -151,9 +148,6 @@ class FoodProduct extends Product {
     private boolean Peanuts;
     private boolean Gluten;
 
-    public FoodProduct() {
-    }
-
     public FoodProduct(Long Id, String Name, int Quantity, double Price, int calories, boolean Dairy, boolean eggs, boolean Peanuts, boolean gluten) {
         super(Id, Name, Quantity, Price);
         setCalories(calories);
@@ -195,9 +189,6 @@ class CleaningProduct extends Product {
     boolean Liquid;
     String WhereToUse;
 
-    public CleaningProduct() {
-    }
-
     public CleaningProduct(Long Id, String Name, int Quantity, double Price, boolean liquid, String whereToUse) {
         super(Id, Name, Quantity, Price);
         this.Liquid = liquid;
@@ -221,9 +212,6 @@ class Customer {
     String Name;
     ArrayList<Product> Cart;
     ArrayList<Integer> Count;
-
-    public Customer() {
-    }
 
     public Customer(String Name) {
         this.Name = Name;
@@ -296,9 +284,6 @@ class Customer {
 class ClubCustomer extends Customer {
     private String Phone;
     private int Points;
-
-    public ClubCustomer() {
-    }
 
     public ClubCustomer(String Name, String Phone) {
         super(Name);
@@ -375,9 +360,6 @@ class Store {
     private String Website;
     private ArrayList<ClubCustomer> clubCustomers;
     private ArrayList<Product> products;
-
-    public Store() {
-    }
 
     public Store(String Name, String Website) {
         this.Name = Name;
